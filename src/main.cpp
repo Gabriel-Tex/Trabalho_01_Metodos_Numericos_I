@@ -8,10 +8,8 @@
 int main() {
     // variáveis
     int opcao;
+    std::string entrada;
     bool continuar = true;
-    // intervalo
-    std::vector<intervalo> intervalos;
-    double a, b;
 
     // padrão estabelecido
     double d0 = 0.5, e1 = 0.0001, e2 = 0.0001, maxIter = 30;
@@ -23,114 +21,54 @@ int main() {
     while(continuar != false){
         // MENU
         std::cout << " ======= MENU ======= " << std::endl <<
-        "0 - Isolamento" << std::endl <<
-        "1 - Refinamento" << std::endl << 
-        "2 - Sair" << std::endl <<
+        "0 - Refinamento" << std::endl << 
+        "1 - Sair" << std::endl <<
         "opcao: ";
-        std::cin >> opcao;
+        std::cin >> entrada;
         std::cout << std::endl;
+        try {
+            opcao = stoi(entrada);
+        } catch(...) {
+            std::cout << "Erro: entre uma opcao valida." << std::endl << std::endl;
+        }
 
         switch (opcao)
         {
-        // ============== ISOLAMENTO ============== 
-        case 0:
-            std::cout << "======= Escolher padrao =======" << std::endl <<
-            "0 - Funcao padrao (f(d) = e^d - 4*d^2)" << std::endl <<
-            "1 - Funcao com 'a' variado (f(d) = a*e^d - 4*d^2)" << std::endl <<
-            "2 - Voltar" << std::endl <<
-            "Opcao: ";
-            std::cin >> opcao;
-            std::cout << std::endl;
-            
-            switch (opcao)
-            {
-            // ============== FUNCAO PADRAO ============== 
-            case 0:
-                std::cout << "f(d) = e^d - 4*d^2" << std::endl << std::endl <<
-                " ===== Escolha o intervalo inicial: =====" << std::endl <<
-                "Extremidade esquerda: ";
-                std::cin >> a;
-                std::cout << "Extremidade direita: ";
-                std::cin >> b;
-                std::cout << std::endl;
-
-                intervalos = isolamento(a, b, 1);
-                if(intervalos.size() == 0){
-                    std::cout << "Nenhuma raiz foi encontrada. " << std::endl;
-                }
-                else{
-                    std::cout << std::setprecision(2) << "Intervalos com raizes encontrados entre " << a << " e " << b << ":" << std::endl;
-                for(int i = 0; i<intervalos.size(); ++i){
-                    std::cout << "[" << std::setprecision(2) << intervalos[i].a << "," << intervalos[i].b <<
-                    "]" << " ";
-                }
-                std::cout << std::endl;
-                }
-                break;
-            // ============== FUNCAO COM A VARIADO ============== 
-            case 1:
-                double A;
-
-                std::cout << 
-                "f(d) = a*e^d - 4*d^2" << std::endl << std::endl <<
-                " ======== Escolha o valor de 'a' ========" << std::endl <<
-                "Valor: ";
-                std::cin >> A;
-                std::cout << std::endl;
-
-                std::cout << "f(d) = " << std::setprecision(2) << A << "e^d - 4*d^2" << std::endl << std::endl <<
-                " ===== Escolha o intervalo inicial: =====" << std::endl <<
-                "Extremidade esquerda: ";
-                std::cin >> a;
-                std::cout << "Extremidade direita: ";
-                std::cin >> b;
-                std::cout << std::endl;
-
-                intervalos = isolamento(a, b, A);
-                if(intervalos.size() == 0){
-                    std::cout << "Nenhuma raiz foi encontrada. " << std::endl;
-                }
-                else{
-                    std::cout << std::setprecision(2) << "Intervalos com raizes encontrados entre " << a << " e " << b << ":" << std::endl;
-                for(int i = 0; i<intervalos.size(); ++i){
-                    std::cout << "[" << std::setprecision(2) << intervalos[i].a << "," << intervalos[i].b <<
-                    "]" << " ";
-                }
-                std::cout << std::endl;
-                }
-                break;
-            // ============== VOLTAR ============== 
-            case 2:
-                break;
-            default:
-                std::cout << "Erro! Entre uma opcao valida." << std::endl;
-                break;
-            }
-            break;
         // ============== REFINAMENTO ============== 
-        case 1:
+        case 0:
             std::cout << "======= ESCOLHA O PADRAO =======" << std::endl <<
             "0 - Funcao padrao (f(d) = e^d - 4*d^2)" << std::endl <<
             "1 - Funcao com 'a' variado (f(d) = a*e^d - 4*d^2)" << std::endl <<
             "2 - Voltar" << std::endl <<
             "opcao: ";
-            std::cin >> opcao;
+            std::cin >> entrada;
             std::cout << std::endl;
+            try {
+                opcao = stoi(entrada);
+            } catch(...) {
+                std::cout << "Erro: entre uma opcao valida." << std::endl << std::endl;
+            }
 
             switch (opcao)
             {
             case 0:
                 // ========== FUNCAO PADRAO ========== 
                 std::cout << 
-                "f(d) = e^d - 4*d^2" << std::endl << std::endl <<    
+                "f(d) = e^d - 4*d^2, d0 = " << d0 << ", d1 = " << d1 << ", erro = " << e1 << std::endl << std::endl <<    
                 " ======= METODOS DE REFINAMENTO =======" << std::endl << 
                 "0 - Metodo de Newton-Raphson" << std::endl <<
                 "1 - Metodo de Newton modificado" << std::endl <<
                 "2 - Metodo da Secante tradicional" << std::endl <<
                 "3 - Voltar" << std::endl <<
                 "opcao: ";
-                std::cin >> opcao;
+                std::cin >> entrada;
                 std::cout << std::endl;
+                try {
+                    opcao = stoi(entrada);
+                } catch(...) {
+                    std::cout << "Erro: entre uma opcao valida." << std::endl << std::endl;
+                }
+                
 
                 switch (opcao)
                 {
@@ -151,15 +89,12 @@ int main() {
                     // ============== VOLTAR ==============
                 case 3:
                     break;
-                default:
-                    std::cout << "Erro! Escolha um metodo valido." << std::endl;
-                    break;
                 }
                 break;
             case 1:
                 // ========== FUNCAO COM "A" VARIADO ==========
-                double A, novo_d0, novo_d1, e, a, b;
-                int index_intervalo;
+                double A, novo_d0, novo_d1, e;
+                intervalo intervalo;
                 // definindo valor de a
                 std::cout << 
                 "f(d) = a*e^d - 4*d^2" << std::endl << std::endl <<
@@ -167,49 +102,25 @@ int main() {
                 "Valor: ";
                 std::cin >> A;
                 std::cout << std::endl;
+                // valor de A tem de estar entre 0 e 2.165364
+                if(A == 0){
+                    std::cout << "Se a amplitude vale 0, o deslocamento tambem vale 0." << std::endl;
+                    break;
+                }
+                else if(A < 0 || A > 2.165364){
+                    std::cout << "O deslocamento d so existe se 'a' esta entre 0 e 2.165364 (truncado)." << std::endl;
+                    break;
+                }
 
                 // isolamento
-                std::cout << "f(d) = " << std::setprecision(2) << A << "e^d - 4*d^2" << std::endl << std::endl <<
-                " ======== Isolamento ========" << std::endl <<
-                "Extremidade esquerda: ";
-                std::cin >> a;
-                std::cout << "Extremidade direita: ";
-                std::cin >> b;
-                std::cout << std::endl;
-
-                intervalos = isolamento(a, b, A);
-                if(intervalos.size() == 0){
-                    std::cout << "Nenhuma raiz foi encontrada. " << std::endl;
-                    break;
-                }
-                else{
-                    std::cout << std::setprecision(2) << "Intervalos com raizes encontrados entre " << a << " e " << b << ":" << std::endl;
-                for(int i = 0; i<intervalos.size(); ++i){
-                    std::cout << "[" << std::setprecision(2) << intervalos[i].a << "," << intervalos[i].b <<
-                    "]" << " ";
-                }
-                std::cout << std::endl;
-                }
-                // escolhendo o intervalo a ser refinado
-                std::cout << "======= Escolha o intervalo =======" << std::endl;
-                for(int i = 0; i<intervalos.size(); ++i){
-                    std::cout << i <<" - [" << std::setprecision(2) << intervalos[i].a << "," << intervalos[i].b <<
-                    "]" << " ";
-                }
-                std::cout << std::endl << 
-                "Opcao: ";
-                std::cin >> index_intervalo;
-                std::cout << std::endl;
-                if(index_intervalo >= 0 && index_intervalo <= intervalos.size()-1){
-                    intervalo intervalo_refinado = intervalos[index_intervalo];
-                    // definindo valor de d0 e d1
-                    novo_d0 = intervalo_refinado.a;
-                    novo_d1 = intervalo_refinado.b;
-                }    
-                else{
-                    std::cout << "Faca uma escolha valida." << std::endl;
-                    break;
-                }
+                intervalo = isolamento_para_f_com_A_variado(A);
+                
+                std::cout << std::setprecision(2) << "Intervalos com raizes encontrados: [" << 
+                std::setprecision(2) << intervalo.a << ", " << intervalo.b << "]" << std::endl << std::endl;
+                
+                novo_d0 = intervalo.a;
+                novo_d1 = intervalo.b;
+               
                 // escolher valor do erro absoluto  
                 std::cout << 
                 "f(d) = " << std::setprecision(2) << A << "*e^d - 4*d^2" << std::endl << std::endl <<
@@ -231,8 +142,13 @@ int main() {
                 "2 - Metodo da Secante tradicional" << std::endl <<
                 "3 - Voltar" << std::endl <<
                 "opcao: ";
-                std::cin >> opcao;
+                std::cin >> entrada;
                 std::cout << std::endl;
+                try {
+                    opcao = stoi(entrada);
+                } catch(...) {
+                    std::cout << "Erro: entre uma opcao valida." << std::endl << std::endl;
+                }
 
                 switch (opcao)
                 {
@@ -253,26 +169,17 @@ int main() {
                     // ============== VOLTAR ==============
                 case 3:
                     break;
-                default:
-                    std::cout << "Erro! Escolha um metodo valido." << std::endl;
-                    break;
                 }
                 
                 break;
+            // ============== VOLTAR ==============
             case 2:
                 break;
-            default:
-                std::cout << "Erro! Entre uma opcao valida" << std::endl;
-                break;
             }
-            
             break;
         // ============== SAIR ==============
-        case 2:
+        case 1:
             continuar = false;
-            break;
-        default:
-            std::cout << "Erro! Entre uma opcao valida." << std::endl;
             break;
         }     
     }
