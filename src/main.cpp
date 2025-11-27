@@ -4,7 +4,7 @@
 #include "funcao.h"
 #include "refinamento.h"
 #include "isolamento.h"
-#include "funcoes_aux.h"
+#include "tratamento.h"
 
 int main() {
     // variáveis
@@ -26,8 +26,9 @@ int main() {
         "1 - Sair" << std::endl <<
         "opcao: ";
         std::cin >> entrada;
-        if(!validando_opcao(entrada, opcao))  
+        if(!validando_inteiro(entrada, opcao))  
             continue;
+        std::cout << std::endl;
 
         switch (opcao)
         {
@@ -39,8 +40,9 @@ int main() {
             "2 - Voltar" << std::endl <<
             "opcao: ";
             std::cin >> entrada;
-            if(!validando_opcao(entrada, opcao))  
+            if(!validando_inteiro(entrada, opcao))  
                 continue;
+            std::cout << std::endl;
 
             switch (opcao)
             {
@@ -55,9 +57,9 @@ int main() {
                 "3 - Voltar" << std::endl <<
                 "opcao: ";
                 std::cin >> entrada;
-                if(!validando_opcao(entrada, opcao))  
+                if(!validando_inteiro(entrada, opcao))  
                     continue;
-                
+                std::cout << std::endl;
 
                 switch (opcao)
                 {
@@ -78,6 +80,9 @@ int main() {
                     // ============== VOLTAR ==============
                 case 3:
                     break;
+                default:
+                    std::cout << "\nOpcao inexistente! Tente novamente." << std::endl << std::endl;
+                    break;
                 }
                 break;
             case 1:
@@ -89,8 +94,11 @@ int main() {
                 "f(d) = a*e^d - 4*d^2" << std::endl << std::endl <<
                 " ======== Escolha o valor de 'a' ========" << std::endl <<
                 "Valor: ";
-                std::cin >> A;
+                std::cin >> entrada;
+                if(!validando_double(entrada, A))
+                    break;
                 std::cout << std::endl;
+
                 // valor de A tem de estar entre 0 e 2.165364
                 if(A == 0){
                     std::cout << "Se a amplitude vale 0, o deslocamento tambem vale 0." << std::endl;
@@ -115,10 +123,13 @@ int main() {
                 "f(d) = " << std::setprecision(2) << A << "*e^d - 4*d^2" << std::endl << std::endl <<
                 " ======== Escolha o valor do erro absoluto ========" << std::endl <<
                 "Erro: ";
-                std::cin >> e;
+                std::cin >> entrada;
+                if(!validando_double(entrada, e))
+                    break;
                 std::cout << std::endl;
+                
                 if(e <= 0 || e >= 1){
-                    std::cout << "Entre um erro valido entre 0 e 1." << std::endl;
+                    std::cout << "Entre um erro valido entre 0 e 1." << std::endl << std::endl;
                     break;
                 }
 
@@ -132,8 +143,9 @@ int main() {
                 "3 - Voltar" << std::endl <<
                 "opcao: ";
                 std::cin >> entrada;
-                if(!validando_opcao(entrada, opcao))  
+                if(!validando_inteiro(entrada, opcao))  
                     continue;
+                std::cout << std::endl;
 
                 switch (opcao)
                 {
@@ -154,17 +166,26 @@ int main() {
                     // ============== VOLTAR ==============
                 case 3:
                     break;
+                default:
+                    std::cout << "\nOpcao inexistente! Tente novamente." << std::endl << std::endl;
+                    break;
                 }
                 
                 break;
             // ============== VOLTAR ==============
             case 2:
                 break;
+            default:
+                std::cout << "\nOpcao inexistente! Tente novamente." << std::endl << std::endl;
+                break;
             }
             break;
         // ============== SAIR ==============
         case 1:
             continuar = false;
+            break;
+        default:
+            std::cout << "\nOpcao inexistente! Tente novamente." << std::endl << std::endl;
             break;
         }     
     }
