@@ -6,6 +6,7 @@
 #include "isolamento.h"
 #include "tratamento.h"
 
+// interface no terminal
 int main() {
     // variáveis
     int opcao;
